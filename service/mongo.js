@@ -1,4 +1,4 @@
-// service/mongo.js
+
 import mongoose from "mongoose";
 
 let isConnected = false;
@@ -11,7 +11,7 @@ const connectToDB = async () => {
 
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URL, {
-            dbName: "dcx",
+            dbName: "DCX",
         });
 
         isConnected = true;

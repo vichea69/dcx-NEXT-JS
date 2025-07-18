@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 import { BookOpen, ArrowRightIcon, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {getCourses} from "../../../queires /courses.js";
+
+
 
 const categories = [
     {
@@ -96,7 +99,9 @@ const courses = [
     },
 ];
 
-const HomePage = () => {
+const HomePage = async () => {
+    const course = await getCourses();
+    console.log(course);
     return (
         <>
             {/* Hero Section */}
