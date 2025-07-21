@@ -1,3 +1,4 @@
+'use client'
 import SiteFooter from "@/components/site-footer";
 import MainNav from "@/components/main-nav";
 
@@ -17,7 +18,6 @@ const MainLayout = ({ children }) => {
                     <MainNav items={navLinks} />
                 </div>
             </header>
-
 
             <main className="flex-1 pt-20 px-4 sm:px-6 lg:px-8">
                 {children}
