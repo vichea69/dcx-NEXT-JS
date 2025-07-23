@@ -19,7 +19,7 @@ export default async function SingleCoursePage({ params }) {
         thumbnail={course?.thumbnail}
       />
 
-      <CourseDetails/>
+      <CourseDetails course={course} />
 
       {
         course?.testimonials && (

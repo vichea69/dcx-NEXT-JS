@@ -1,32 +1,40 @@
 'use client'
-import SiteFooter from "@/components/site-footer";
-import MainNav from "@/components/main-nav";
+
+import React from 'react'
+import { SessionProvider } from 'next-auth/react'
+import MainNav from '@/components/main-nav'
+import SiteFooter from '@/components/site-footer'
 
 const navLinks = [
-    { title: "Home", href: "/" },
-    { title: "About", href: "/about" },
-    { title: "Contact", href: "/contact" },
-    { title: "Courses", href: "/courses" },
-];
+    { title: 'Features', href: '/features' },
+    { title: 'Pricing', href: '/pricing' },
+    { title: 'Blog', href: '/blog' },
+    { title: 'Documentation', href: '/documentation' },
+]
 
 const MainLayout = ({ children }) => {
     return (
-        <div className="flex min-h-screen flex-col bg-background text-foreground">
+        <SessionProvider>
+            <div className='flex min-h-screen flex-col'>
+                {/* Sticky Header */}
+                <header className='fixed top-0 left-0 right-0 z-40 bg-background/60 backdrop-blur-md border-b'>
+                    <div className='container mx-auto px-4 flex h-20 items-center justify-between'>
+                        <MainNav items={navLinks} />
+                    </div>
+                </header>
 
-            <header className="fixed top-0 left-0 right-0 z-50 border-b border-zinc-200 bg-white/70 backdrop-blur-md dark:bg-zinc-900/70 dark:border-zinc-700">
-                <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-                    <MainNav items={navLinks} />
-                </div>
-            </header>
+                {/* Page Content */}
+                <main className="flex-1 pt-24 flex flex-col items-center">
+                    <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
+                        {children}
+                    </div>
+                </main>
 
-            <main className="flex-1 pt-20 px-4 sm:px-6 lg:px-8">
-                {children}
-            </main>
+                {/* Footer */}
+                <SiteFooter />
+            </div>
+        </SessionProvider>
+    )
+}
 
-            {/* Footer */}
-            <SiteFooter />
-        </div>
-    );
-};
-
-export default MainLayout;
+export default MainLayout

@@ -15,8 +15,8 @@ import { getCategories } from "@/queires/categories.js";
 const HomePage = async () => {
   const courses = await getCourseList();
   const categories = await getCategories();
-  console.log(courses);
-  console.log(categories);
+  // console.log(courses);
+  // console.log(categories);
 
   return (
       <>
@@ -50,11 +50,11 @@ const HomePage = async () => {
             </p>
 
             <div className="flex flex-wrap justify-center items-center gap-4 mt-4">
-              <Link href="#" className={cn(buttonVariants({ size: "lg" }))}>
+              <Link href="/courses" className={cn(buttonVariants({ size: "lg" }))}>
                 Explore Now
               </Link>
               <Link
-                  href="#"
+                  href='/register/instructor'
                   className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
               >
                 Become An Instructor
