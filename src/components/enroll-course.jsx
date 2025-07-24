@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { cn } from '@/lib/utils';
 import { createCheckoutSession } from '@/app/actions/stripe';
 
-const EnrollCourse = ({ asLink }) => {
+const EnrollCourse = ({ asLink , courseId}) => {
 
     const formAction = async(data) => {
         const { url } = await createCheckoutSession(data);
@@ -15,6 +15,7 @@ const EnrollCourse = ({ asLink }) => {
     return (
  <>
     <form action={formAction} >
+        <input type="hidden" name="courseId" value={courseId} />
         {asLink ? (
              <Button
              type="submit"
