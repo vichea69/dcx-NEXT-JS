@@ -13,11 +13,13 @@ export default async function SingleCoursePage({ params }) {
     
   return (
     <>
-      <CourseDetailsIntro 
+      {/* <CourseDetailsIntro 
         title={course?.title}
         subtitle={course?.subtitle}
         thumbnail={course?.thumbnail}
-      />
+      /> */}
+      
+      <CourseDetailsIntro course={course} />
 
       <CourseDetails course={course} />
 

@@ -58,8 +58,8 @@ const courses = await Course.find({instructor: instructorId }).lean();
         })
     );
 
-    const totalEnrollments = enrollments.reduce(( item, currentValue )=> {
-        return item.length + currentValue.length;
+    const totalEnrollments = enrollments.reduce(( acc,obj )=> {
+        return acc + obj.length;
     });
     
     const tesimonials = await Promise.all(
