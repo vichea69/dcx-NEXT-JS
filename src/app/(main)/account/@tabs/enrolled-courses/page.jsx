@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import {getUserByEmail} from "@/queires/user.js";
-import {getEnrollmentsForUser} from "@/queires/enrollments.js";
+import {getUserByEmail} from "@/queries/user.js";
+import {getEnrollmentsForUser} from "@/queries/enrollments.js";
 import EnrolledCourseCard from "@/app/(main)/account/component/enrolled-coursecard.jsx";
 
 

@@ -5,8 +5,8 @@ import { Testimonial } from "@/model/testimonial-model";
 import { User } from "@/model/user-model";
 import { replaceMongoIdInArray , replaceMongoIdInObject} from "@/lib/convertData.js";
 import connectToDB from "../../service/mongo.js";
-import { getEnrollmentsForCourse } from "./enrollments";
-import { getTestimonialsForCourse } from "./testimonials";
+import { getEnrollmentsForCourse } from "./enrollments.js";
+import { getTestimonialsForCourse } from "./testimonials.js";
 
 export async function getCourseList() {
     const db = await connectToDB();

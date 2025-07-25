@@ -2,7 +2,7 @@ import PersonalDetails from "../component/personal-details";
 import ContactInfo from "../component/contact-info";
 import ChangePassword from "../component/change-password";
 import { auth } from "@/auth";
-import {getUserByEmail} from "@/queires/user.js";
+import {getUserByEmail} from "@/queries/user.js";
 
 
 async function Profile() {

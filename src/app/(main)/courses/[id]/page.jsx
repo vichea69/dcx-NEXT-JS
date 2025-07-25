@@ -3,7 +3,7 @@ import CourseDetailsIntro from "./_components/CourseDetailsIntro";
 import CourseDetails from "./_components/CourseDetails";
 import Testimonials from "./_components/Testimonials";
 import RelatedCourses from "./_components/RelatedCourses";
-import { getCourseDetails } from "@/queires/courses";
+import { getCourseDetails } from "@/queries/courses";
 import { replaceMongoIdInArray } from "@/lib/convertData";
  
 export default async function SingleCoursePage({ params }) {

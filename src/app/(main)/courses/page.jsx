@@ -4,7 +4,7 @@ import FilterCourseMobile from "./_components/FilterCourseMobile";
 import ActiveFilters from "./_components/ActiveFilters";
 import FilterCourse from "./_components/FilterCourse";
 import CourseCard from "./_components/CourseCard";
-import {getCourseList} from "@/queires/courses.js";
+import {getCourseList} from "@/queries/courses.js";
 
 
 const CoursesPage = async () => {

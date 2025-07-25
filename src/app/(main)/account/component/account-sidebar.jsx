@@ -8,7 +8,7 @@ import Link from "next/link";
 import Menu from './account-menu';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
-import { getUserByEmail } from '@/queires/user';
+import { getUserByEmail } from '@/queries/user';
 
 const AccountSidebar = async () => {
 

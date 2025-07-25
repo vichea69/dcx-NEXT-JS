@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tv } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getLesson } from '@/queires/lessons';
+import { getLesson } from '@/queries/lessons';
 
 const CourseLessonList = async ({lessonId}) => {
 

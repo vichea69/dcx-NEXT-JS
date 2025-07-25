@@ -9,8 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import CourseCard from "./courses/_components/CourseCard";
 import Element from "@/components/element";
-import { getCourseList } from "@/queires/courses.js";
-import { getCategories } from "@/queires/categories.js";
+import { getCourseList } from "@/queries/courses.js";
+import { getCategories } from "@/queries/categories.js";
 
 const HomePage = async () => {
   const courses = await getCourseList();

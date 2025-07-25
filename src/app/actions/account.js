@@ -2,7 +2,7 @@
 
 import { User } from "@/model/user-model";
 import { revalidatePath } from "next/cache";
-import {validatePassword} from "@/queires/user.js";
+import {validatePassword} from "@/queries/user.js";
 import bcrypt from "bcryptjs";
 
 export async function updateUserInfo(email,updatedData){
