@@ -42,10 +42,10 @@ const CourseInstructor = async ({course}) => {
                   <Presentation className="text-gray-600" />
                   <div>{courseDetailsByInstructor?.courses} Courses</div>
                 </li>
-                <li className="flex space-x-3">
-                  <UsersRound className="text-gray-600" />
-                  <div>{courseDetailsByInstructor?.enrollments}+ Student Learned</div>
-                </li>
+                {/*<li className="flex space-x-3">*/}
+                {/*  <UsersRound className="text-gray-600" />*/}
+                {/*  <div>{courseDetailsByInstructor?.enrollments}+ Student Learned</div>*/}
+                {/*</li>*/}
                 <li className="flex space-x-3">
                   <MessageSquare className="text-gray-600" />
                   <div>{courseDetailsByInstructor?.reviews} Reviews</div>

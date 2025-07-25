@@ -1,6 +1,5 @@
 import { replaceMongoIdInArray } from "@/lib/convertData";
 import { Category } from "@/model/category-model";
-import ca from "zod/v4/locales/ca.cjs";
 
 export async function getCategories(){
     const categories = await Category.find({}).lean();

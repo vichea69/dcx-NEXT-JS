@@ -46,9 +46,16 @@ export async function getCourseDetails(id) {
         model: Module
     }).lean();
     return replaceMongoIdInObject(course);
-}  
+}
 export async function getCourseDetailsByInstructor(instructorId){
-const courses = await Course.find({instructor: instructorId }).lean();
+const courses = await Course.find({instructor: instructorId }).
+populate({
+    path: "category",
+    model: Category
+}).populate({
+    path: "instructor",
+    model: User
+}).lean();
 
     const enrollments = await Promise.all(
         courses.map(async (course) => {
@@ -58,10 +65,11 @@ const courses = await Course.find({instructor: instructorId }).lean();
         })
     );
 
+
     const totalEnrollments = enrollments.reduce(( acc,obj )=> {
         return acc + obj.length;
     });
-    
+
     const tesimonials = await Promise.all(
         courses.map(async (course) => {
             const tesimonial = await getTestimonialsForCourse(course.
@@ -73,12 +81,24 @@ const courses = await Course.find({instructor: instructorId }).lean();
     const totalTestimonials = tesimonials.flat();
     const avgRating = (totalTestimonials.reduce(function (acc, obj) {
         return acc + obj.rating;
-    },0)) / totalTestimonials.length; 
+    },0)) / totalTestimonials.length;
+
+
+    const firstName = courses.length > 0 ? courses[0].instructor?.firstName : "Unknown";
+    const lastName = courses.length > 0 ? courses[0].instructor?.lastName : "Unknown";
+    const designation = courses.length > 0 ? courses[0].instructor?.designation : "Unknown";
+    const insImage = courses.length > 0 ? courses[0].instructor?.profilePicture : "Unknown";
+
 
     return {
         "courses" : courses.length,
         "enrollments": totalEnrollments,
         "reviews" : totalTestimonials.length,
-        "ratings" : avgRating.toPrecision(2)
-    } 
+        "ratings" : avgRating.toPrecision(2),
+        "inscourses" : courses,
+        firstName,
+        lastName,
+        designation,
+        insImage,
+    }
 }

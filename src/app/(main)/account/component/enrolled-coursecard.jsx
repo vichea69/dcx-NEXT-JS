@@ -13,6 +13,8 @@ const EnrolledCourseCard = async ({ enrollment }) => {
     };
 
     const report = await getReport(filter);
+    console.log(report);
+    console.log("Filter sent to getReport:", filter);
 
     // Total Completed Modules
     const totalCompletedModules = report?.totalCompletedModeules?.length || 0;
