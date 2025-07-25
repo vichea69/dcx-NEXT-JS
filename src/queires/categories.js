@@ -5,3 +5,7 @@ export async function getCategories(){
     const categories = await Category.find({}).lean();
     return replaceMongoIdInArray(categories);
 }
+
+export async function getCategoryDetails(categoryId){
+
+}

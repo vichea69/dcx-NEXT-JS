@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { SignupForm } from '../_components/signup-form'; // fix the path if needed
+import { SignupForm } from '../_components/signup-form.jsx'; // fix the path if needed
 import { useParams } from 'next/navigation';
 
 const RegisterPage = () => {

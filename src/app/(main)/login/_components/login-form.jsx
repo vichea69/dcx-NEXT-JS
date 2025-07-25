@@ -3,23 +3,26 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button.jsx';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+} from '@/components/ui/card.jsx';
+import { Input } from '@/components/ui/input.jsx';
+import { Label } from '@/components/ui/label.jsx';
+import { toast } from 'sonner';
 
 export function LoginForm() {
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const formData = new FormData(event.currentTarget);
 
     const res = await signIn('credentials', {
@@ -28,9 +31,18 @@ export function LoginForm() {
       password: formData.get('password'),
     });
 
+    setLoading(false);
+
     if (res?.error) {
-      setError(res.error);
+      const errorMessage =
+          res.error === 'CredentialsSignin'
+              ? 'Incorrect email or password.'
+              : res.error || 'Login failed. Try again.';
+
+      setError(errorMessage);
+      toast.error(errorMessage);
     } else {
+      toast.success('Login successful');
       router.push('/courses');
     }
   };
@@ -55,16 +67,16 @@ export function LoginForm() {
                 <Input id="password" name="password" type="password" required />
               </div>
               {error && <p className="text-red-500 text-sm">{error}</p>}
-              <Button type="submit" className="w-full">
-                Login
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Logging in...' : 'Login'}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{' '}
               <Link href="/register/instructor" className="underline">
                 Instructor
-              </Link>
-              {''} or {''}
+              </Link>{' '}
+              or{' '}
               <Link href="/register/student" className="underline">
                 Student
               </Link>

@@ -63,10 +63,10 @@ const MainNav = ({items,children}) => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56 mt-4">
                                 <DropdownMenuItem>
-                                    <Link href="/register/student">Student</Link>
+                                    <Link href="/src/app/(main)/register/student">Student</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
-                                    <Link href="/register/instructor">Instructor</Link>
+                                    <Link href="/src/app/(main)/register/instructor">Instructor</Link>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

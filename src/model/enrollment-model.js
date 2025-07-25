@@ -10,20 +10,18 @@ const enrollmentSchema = new Schema({
         type: String
     },
     completion_date:{
-        required: true,
+        required: false,
         type: Date
     },
     method:{
         required: true,
         type: String
     },
-    status:{
-        required: true,
-        type: String
-    },   
+   
     course:{  type: Schema.ObjectId, ref: "Course" },
 
     student:{  type: Schema.ObjectId, ref: "User" },
+
  
 });
 export const Enrollment = mongoose.models.Enrollment ?? mongoose.model("Enrollment",enrollmentSchema);
