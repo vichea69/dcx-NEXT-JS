@@ -10,7 +10,7 @@ const navLinks = [
     { title: 'Features', href: '/features' },
     { title: 'Pricing', href: '/pricing' },
     { title: 'Blog', href: '/blog' },
-    { title: 'Documentation', href: '/documentation' },
+    { title: 'Dashboard', href: '/dashboard' },
 ]
 
 const MainLayout = ({ children }) => {

@@ -47,7 +47,7 @@ export async function getCourseDetails(id) {
     }).lean();
     return replaceMongoIdInObject(course);
 }
-export async function getCourseDetailsByInstructor(instructorId){
+export async function getCourseDetailsByInstructor(instructorId,expand){
 const courses = await Course.find({instructor: instructorId }).
 populate({
     path: "category",
@@ -64,11 +64,31 @@ populate({
                 return enrollment;
         })
     );
+    console.log(enrollments);
+    //Calculate total revenue for
+    function groupBy(array,keyFn){
+        return array.reduce((acc, item)=>{
+            const key = keyFn(item);
+            if(!acc[key]){
+                acc[key] = [];
+            }
+            acc[key].push(item);
+            return acc;
+        },{});
+    }
 
+    //group enrollments by course
+    const groupByCourse = groupBy(enrollments.flat(), (item)=>item.course);
 
-    const totalEnrollments = enrollments.reduce(( acc,obj )=> {
-        return acc + obj.length;
-    });
+    const totalRevenue = courses.reduce(( acc,courses )=> {
+        const enrollmentsForCourse = groupByCourse[courses._id] || [];
+        return acc + enrollmentsForCourse.length * courses.price;
+    },0);
+    console.log(totalRevenue);
+
+    const totalEnrollments = enrollments.reduce((acc, obj) => {
+        return acc + (obj?.length || 0);  // add safety for null/undefined obj
+    }, 0);
 
     const tesimonials = await Promise.all(
         courses.map(async (course) => {
@@ -89,6 +109,13 @@ populate({
     const designation = courses.length > 0 ? courses[0].instructor?.designation : "Unknown";
     const insImage = courses.length > 0 ? courses[0].instructor?.profilePicture : "Unknown";
 
+    if(expand){
+        return {
+            "courses" : courses?.flat(),
+            "enrollments": enrollments?.flat(),
+            "reviews" : totalTestimonials,
+        }
+    }
 
     return {
         "courses" : courses.length,
@@ -96,6 +123,7 @@ populate({
         "reviews" : totalTestimonials.length,
         "ratings" : avgRating.toPrecision(2),
         "inscourses" : courses,
+        "revenue": totalRevenue,
         firstName,
         lastName,
         designation,

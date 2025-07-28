@@ -17,9 +17,21 @@ const MainNav = ({items,children}) => {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [loginSession, setLoginSession] = useState(null);
 
+    const [loggedInUser, setLoggedInUser] = useState(null);
+
     useEffect(() => {
-        console.log("Test information");
         setLoginSession(session);
+        async function fetchMe(){
+            try {
+                const response = await fetch('/api/me')
+                const data = await response.json();
+                console.log(data);
+                setLoggedInUser(data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchMe();
     },[session]);
 
 
@@ -76,13 +88,18 @@ const MainNav = ({items,children}) => {
                         <DropdownMenuTrigger asChild>
                             <div className='cursor-pointer'>
                                 <Avatar>
-                                    <AvatarImage src="https://github.com/shadcn.png" alt="@ariyan" />
+                                    <AvatarImage src={loggedInUser?.profilePicture} alt="@ariyan" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-56 mt-4">
                             <DropdownMenuItem asChild><Link href="/account">Profile</Link></DropdownMenuItem>
+                            {
+                                loggedInUser?.role === "instructor" && (
+                                    <DropdownMenuItem asChild><Link href="/dashboard">Instructor Dashboard</Link></DropdownMenuItem>
+                                )
+                            }
                             <DropdownMenuItem asChild><Link href="/account/enrolled-courses">My Courses</Link></DropdownMenuItem>
                             <DropdownMenuItem asChild><Link href="#">Testimonials & Certificates</Link></DropdownMenuItem>
                             <DropdownMenuItem asChild>

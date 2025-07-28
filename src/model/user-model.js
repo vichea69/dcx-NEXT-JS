@@ -1,49 +1,49 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
-    firstName:{
+    firstName: {
         required: true,
         type: String
     },
-    lastName:{
+    lastName: {
         required: true,
         type: String
     },
-    password:{
+    password: {
         required: true,
         type: String
     },
-    email:{
+    email: {
         required: true,
         type: String
     },
-    role:{
+    role: {
         required: true,
         type: String
     },
-    phone:{
+    phone: {
         required: false,
         type: String
     },
-    bio:{
+    bio: {
         required: false,
         type: String,
         default: ""
     },
-    socialMedia:{
+    socialMedia: {
         required: false,
         type: Object
-    },   
-  
-    profilePicture:{
+    },
+
+    profilePicture: {
         required: false,
         type: String,
-        default: "http://i.pravatar.cc"
+        default: "https://i.pravatar.cc"
     },
-    designation:{
+    designation: {
         required: false,
         type: String,
         default: ""
-    } ,
+    },
 });
-export const User = mongoose.models.User ?? mongoose.model("User",userSchema);
+export const User = mongoose.models.User ?? mongoose.model("User", userSchema);
