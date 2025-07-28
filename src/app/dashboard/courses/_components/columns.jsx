@@ -50,7 +50,7 @@ export const columns = [
     },
   },
   {
-    accessorKey: "isPublished",
+    accessorKey: "active",
     header: ({ column }) => {
       return (
         <Button
@@ -62,11 +62,11 @@ export const columns = [
       );
     },
     cell: ({ row }) => {
-      const isPublished = row.getValue("isPublished") || false;
+      const active = row.getValue("active") || false;
 
       return (
-        <Badge className={cn("bg-gray-500", isPublished && "bg-success")}>
-          {isPublished ? "Published" : "Unpublished"}
+        <Badge className={cn("bg-gray-500", active && "bg-green-600")}>
+          {active ? "Published" : "Unpublished"}
         </Badge>
       );
     },
@@ -74,7 +74,7 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const { id } = row.original;
+      const id = row.original._id;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
