@@ -51,6 +51,8 @@ const AddCourse = () => {
     const { isSubmitting, isValid } = form.formState;
 
     const onSubmit = async (values) => {
+        try {
+            const course = await createCourse(values);
             router.push(`/dashboard/courses/${course?._id}`);
             toast.success("Course created");
         } catch (error) {
@@ -59,14 +61,6 @@ const AddCourse = () => {
         console.log(values);
     };
 
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Write a brief description of your course
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-                  Cancel
     return (
         <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
             <div className="max-w-full w-[536px]">

@@ -1,4 +1,4 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, {Schema, Types as Shema} from "mongoose";
 
 const moduleSchema = new Schema({
     title:{
@@ -6,12 +6,12 @@ const moduleSchema = new Schema({
         type: String
     },
     description:{
-        required: true,
         type: String
     },
-    status:{
+    active:{
         required: true,
-        type: String
+        default: false,
+        type: Boolean
     },
     slug:{
         required: true,
@@ -19,11 +19,15 @@ const moduleSchema = new Schema({
     },
     course:{
         required: true,
-        type: String
+        type: Shema.ObjectId
     },
     lessonIds:{
         required: true,
-        type: [String]
+        type: [Shema.ObjectId]
+    },
+    order:{
+        required: true,
+        type: Number
     },
      
 });
