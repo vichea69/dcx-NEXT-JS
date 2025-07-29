@@ -14,5 +14,5 @@ export async function getReport(filter){
     } catch (error) {
         throw new Error(error);
     }
-    
+     
 }

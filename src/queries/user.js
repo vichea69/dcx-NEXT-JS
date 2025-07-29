@@ -8,6 +8,11 @@ export async function getUserByEmail(email) {
     const user = await User.findOne({ email }).lean(); // lean = plain JS object
     return replaceMongoIdInObject(user); // ✅ correct utility for a single object
 }
+export async function getUserDetails(userId) {
+    const db = await connectToDB();
+    const user = await User.findById(userId).lean(); // lean = plain JS object
+    return replaceMongoIdInObject(user); // ✅ correct utility for a single object
+}
 
 export async function validatePassword(email, password) {
     const user = await getUserByEmail(email);

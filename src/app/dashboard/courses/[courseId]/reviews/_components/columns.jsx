@@ -16,7 +16,7 @@ import Link from "next/link";
 export const columns = [
   {
     id: "name",
-    accessorKey: "student.name",
+    accessorKey: "studentName",
     header: ({ column }) => {
       return (
         <Button
@@ -42,7 +42,7 @@ export const columns = [
     },
   },
   {
-    accessorKey: "review",
+    accessorKey: "content",
     header: ({ column }) => {
       return (
         <Button

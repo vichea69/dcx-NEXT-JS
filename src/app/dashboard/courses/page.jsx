@@ -1,18 +1,18 @@
-import { getInstructorDashboardData } from "@/lib/dashboard-helper";
+import { getInstructorDashboardData, COURSE_DATA } from "@/lib/dashboard-helper";
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 import { ObjectId } from "mongoose";
 
 const CoursesPage = async () => {
-  const data = sanitizeData(await getInstructorDashboardData());
-  console.log(data);
-
-  const courses = sanitizeData(await getInstructorDashboardData()) ;
+  const courses = sanitizeData(await getInstructorDashboardData(COURSE_DATA));
   console.log(courses);
+
+  // const courses = sanitizeData(await getInstructorDashboardData()) ;
+  // console.log(courses);
 
   return (
       <div className="p-6">
-        <DataTable columns={columns} data={data?.courses} />
+        <DataTable columns={columns} data={courses} />
       </div>
   );
 };
