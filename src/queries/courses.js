@@ -6,8 +6,10 @@ import { User } from "@/model/user-model";
 import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData";
 import { getEnrollmentsForCourse } from "./enrollments";
 import { getTestimonialsForCourse } from "./testimonials";
+import connectToDB from "../../service/mongo.js";
 
 export async function getCourseList() {
+    const db = await connectToDB();
     const courses = await Course.find({active:true}).select(["title","subtitle","thumbnail","modules","price","category","instructor"]).populate({
         path: "category",
         model: Category
@@ -26,6 +28,7 @@ export async function getCourseList() {
 
 
 export async function getCourseDetails(id) {
+    const db = await connectToDB();
     const course = await Course.findById(id)
         .populate({
             path: "category",
@@ -61,6 +64,7 @@ function groupBy(array, keyFn){
 
 
 export async function getCourseDetailsByInstructor(instructorId,expand){
+    const db = await connectToDB();
     const publishCourses = await Course.find({instructor: instructorId, active:true })
         .populate({path: "category", model: Category })
         .populate({path: "testimonials", model: Testimonial })

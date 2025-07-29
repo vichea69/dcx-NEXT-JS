@@ -1,5 +1,4 @@
-"use client";
-// import uploadIcon from "@/assets/icons/upload.svg";
+'use client';
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { CloudUpload } from "lucide-react";
@@ -8,7 +7,7 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 
 export const UploadDropzone = (props) => {
-  const { isMulti = false, label } = props;
+  const { isMulti = false, label,onUpload } = props;
 
   const [droppedFiles, setDroppedFiles] = useState(null);
 
@@ -42,14 +41,9 @@ export const UploadDropzone = (props) => {
     const progressInterval = startSimulatedProgress();
 
     setDroppedFiles(acceptedFiles);
-
-    // await new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     resolve('resolved');
-    //   }, 3000);
-    // });
     setUploadProgress(100);
     clearInterval(progressInterval);
+    onUpload(acceptedFiles);
   }, []);
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
