@@ -1,13 +1,14 @@
-'use server'
-import {getLoggedInUser} from "@/lib/loggedin-user.js";
-export async function createCourse(data){
-    try{
-        const loggedInUser = await getLoggedInUser();
-        data["instructor"] = loggedInUser?.id;
-        const course = await createCourse(data);
-        return course;
+"use server"
+import { getLoggedInUser } from "@/lib/loggedin-user"
+import { create } from "@/queries/courses";
 
-    }catch (error) {
-        throw new Error(error);
+export async function createCourse(data){
+    try {
+        const loggedinUser = await getLoggedInUser();
+        data["instructor"] = loggedinUser?.id
+        const course = await create(data);
+        return course;
+    } catch (e) {
+        throw new Error(e);
     }
 }
