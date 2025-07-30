@@ -74,13 +74,13 @@ const MainNav = ({items,children}) => {
                                 <Button variant="outline" size="sm">Register</Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56 mt-4">
-                                <DropdownMenuItem>
-                                    <Link href="/src/app/(main)/register/student">Student</Link>
+                                <DropdownMenuItem asChild>
+                                    <Link href="/register/student">Student</Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Link href="/src/app/(main)/register/instructor">Instructor</Link>
+                                <DropdownMenuItem asChild>
+                                    <Link href="/register/instructor">Instructor</Link>
                                 </DropdownMenuItem>
-                            </DropdownMenuContent>
+                                </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
                 ) : (
