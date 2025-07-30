@@ -15,9 +15,7 @@ import { getCategories } from "@/queries/categories.js";
 const HomePage = async () => {
   const courses = await getCourseList();
   const categories = await getCategories();
-  // console.log(courses);
-  // console.log(categories);
-
+  
   return (
       <>
         {/* Hero Section */}
