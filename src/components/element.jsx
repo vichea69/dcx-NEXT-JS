@@ -28,6 +28,7 @@ const Element = () => {
                             alt="Learn by doing"
                             width={520}
                             height={400}
+                            unoptimized
                             className="rounded-xl shadow-lg"
                         />
                     </div>
