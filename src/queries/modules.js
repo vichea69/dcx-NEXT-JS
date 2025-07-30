@@ -3,23 +3,25 @@ import { Lesson } from "@/model/lesson.model";
 import { Module } from "@/model/module.model";
 import connectToDB from "../../service/mongo";
 
-export async function create(mdouleData) {
+export async function create(moduleData) {
     try {
-        const module = await Module.create(mdouleData);
-        return JSON.parse(JSON.stringify(module));
+        const newModule = await Module.create(moduleData); // ✅ renamed variable
+        return JSON.parse(JSON.stringify(newModule));
     } catch (error) {
         throw new Error(error);
     }
 }
-export async function getModule(moduleId){
+
+export async function getModule(moduleId) {
     const db = await connectToDB();
     try {
-        const module = await Module.findById(moduleId).
-        populate({
-            path: "lessonIds",
-            model: Lesson
-        }).lean();
-        return replaceMongoIdInObject(module);
+        const fetchedModule = await Module.findById(moduleId)
+            .populate({
+                path: "lessonIds",
+                model: Lesson
+            })
+            .lean();
+        return replaceMongoIdInObject(fetchedModule);
     } catch (error) {
         throw new Error(error);
     }
