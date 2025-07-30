@@ -160,8 +160,8 @@ const NotFound = () => {
           <p className="text-3xl md:text-4xl lg:text-5xl text-gray-800 mt-12">
             Page Not Found
           </p>
-          <p className="md:text-lg lg:text-xl text-gray-600 mt-8">
-            Sorry, the page you are looking for could not be found.
+          <p className="md:text-lg lg:text-xl text-gray-600 mt-8 text-center">
+            Sorry, the page you are looking still in development mode and will be available soon.
           </p>
           <Link
           href="/"

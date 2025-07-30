@@ -71,15 +71,15 @@ const HomePage = async () => {
             id="categories"
             className="container max-w-screen-xl mx-auto space-y-6 py-8 md:py-12 lg:py-24 px-4 sm:px-8"
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-            <SectionTitle>Categories</SectionTitle>
-            <Link
-                href="/categories"
-                className="text-sm font-medium hover:opacity-80 flex items-center gap-1 mt-2 md:mt-0"
-            >
-              Browse All <ArrowRightIcon className="h-4 w-4" />
-            </Link>
-          </div>
+          <div className="flex items-center justify-between w-full">
+      <SectionTitle>Categories</SectionTitle>
+      <Link
+        href="/categories"
+        className="text-sm sm:text-base font-medium hover:opacity-80 flex items-center gap-x-1.5 whitespace-nowrap"
+      >
+        Browse All <ArrowRightIcon className="h-4 w-4 flex-shrink-0" />
+      </Link>
+    </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {categories.map((category) => (
@@ -108,15 +108,15 @@ const HomePage = async () => {
             id="courses"
             className="container max-w-screen-xl mx-auto space-y-6 py-8 md:py-12 lg:py-24 px-4 sm:px-8"
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-            <SectionTitle>Courses</SectionTitle>
-            <Link
-                href="/courses"
-                className="text-sm font-medium hover:opacity-80 flex items-center gap-1 mt-2 md:mt-0"
-            >
-              Browse All <ArrowRightIcon className="h-4 w-4" />
-            </Link>
-          </div>
+          <div className="flex items-center justify-between w-full">
+          <SectionTitle>Courses</SectionTitle>
+          <Link
+            href="/courses"
+            className="text-sm sm:text-base font-medium hover:opacity-80 flex items-center gap-x-1.5 whitespace-nowrap"
+          >
+            Browse All <ArrowRightIcon className="h-4 w-4 flex-shrink-0" />
+          </Link>
+        </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
             {courses.map((course) => (
