@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "./_components/navbar";
 import Sidebar from "./_components/sidebar";
 
@@ -11,6 +12,7 @@ const DashboardLayout = ({ children }) => {
         <Sidebar />
       </div>
       <main className="lg:pl-56 pt-[80px] h-full">{children}</main>
+       <Toaster position="top-right" richColors />
     </div>
   );
 };
