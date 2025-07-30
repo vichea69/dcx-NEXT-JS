@@ -17,6 +17,8 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { getSlug } from "@/lib/convertData";
+import { updateModule } from "@/app/actions/module";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -37,6 +39,8 @@ export const ModuleTitleForm = ({ initialData, courseId, chapterId }) => {
 
   const onSubmit = async (values) => {
     try {
+      values["slug"] = getSlug(values.title)
+      await updateModule(chapterId,values)
       toast.success("Module title updated");
       toggleEdit();
       router.refresh();
@@ -60,7 +64,7 @@ export const ModuleTitleForm = ({ initialData, courseId, chapterId }) => {
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{"Reactive Accelerator"}</p>}
+      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
       {isEditing && (
         <Form {...form}>
           <form

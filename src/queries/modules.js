@@ -1,6 +1,7 @@
 import { replaceMongoIdInObject } from "@/lib/convertData";
 import { Lesson } from "@/model/lesson.model";
 import { Module } from "@/model/module.model";
+import connectToDB from "../../service/mongo";
 
 export async function create(mdouleData) {
     try {
@@ -11,6 +12,7 @@ export async function create(mdouleData) {
     }
 }
 export async function getModule(moduleId){
+    const db = await connectToDB();
     try {
         const module = await Module.findById(moduleId).
         populate({

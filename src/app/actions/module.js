@@ -35,3 +35,11 @@ export async function reOrderModules(data){
         throw new Error(e);
     }
 }
+
+export async function updateModule(moduleId, data) {
+    try {
+       await Module.findByIdAndUpdate(moduleId,data);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
