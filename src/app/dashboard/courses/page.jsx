@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getInstructorDashboardData, COURSE_DATA } from "@/lib/dashboard-helper";
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
