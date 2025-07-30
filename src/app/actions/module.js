@@ -2,6 +2,8 @@
 
 import { Course } from "@/model/course-model";
 import { create } from "@/queries/modules";
+import element from "@/components/element.jsx";
+import {Module} from "@/model/module.model.js";
 
 export async function createModule(data){
     try {
@@ -17,6 +19,18 @@ export async function createModule(data){
 
         return createdModule;
 
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+export async function reOrderModules(data){
+    try {
+        await Promise.all(data.map(async (element)=>{
+            await Module.findByIdAndUpdate(element.id,{
+                order: element.position
+            })
+        }))
     } catch (e) {
         throw new Error(e);
     }
