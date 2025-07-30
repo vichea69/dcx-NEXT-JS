@@ -23,12 +23,11 @@ const Element = () => {
 
                     {/* Image */}
                     <div className="md:w-1/2 flex justify-center">
-                        <Image
+                        <img
                             src="/assets/images/two.png"
                             alt="Learn by doing"
                             width={520}
                             height={400}
-                            unoptimized
                             className="rounded-xl shadow-lg"
                         />
                     </div>
