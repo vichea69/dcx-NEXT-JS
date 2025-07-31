@@ -23,13 +23,24 @@ export function LoginForm() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setError('');
+
+    console.log("🚀 Login form submitted");
+
     const formData = new FormData(event.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    console.log("📧 Email:", email);
+    console.log("🔒 Password:", password); // ⚠️ Don't log this in production!
 
     const res = await signIn('credentials', {
       redirect: false,
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email,
+      password,
     });
+
+    console.log("📦 Login result:", res);
 
     setLoading(false);
 
@@ -39,9 +50,11 @@ export function LoginForm() {
               ? 'Incorrect email or password.'
               : res.error || 'Login failed. Try again.';
 
+      console.error("❌ Login failed:", errorMessage);
       setError(errorMessage);
       toast.error(errorMessage);
     } else {
+      console.log("✅ Login successful! Redirecting to /courses");
       toast.success('Login successful');
       router.push('/courses');
     }

@@ -1,6 +1,6 @@
 export const authConfig ={
     session :{
-        strategy: 'jwt',
+        strategy: "jwt",
     },
     providers :[]
 }

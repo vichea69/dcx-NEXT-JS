@@ -4,7 +4,7 @@ import React from 'react'
 import { SessionProvider } from 'next-auth/react'
 import MainNav from '@/components/main-nav'
 import SiteFooter from '@/components/site-footer'
-import { Toaster } from 'sonner';
+import { Toaster } from 'sonner'
 
 const navLinks = [
     { title: 'Features', href: '/features' },
@@ -12,9 +12,9 @@ const navLinks = [
     { title: 'Blog', href: '/blog' },
 ]
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, pageProps }) => {
     return (
-        <SessionProvider>
+        <SessionProvider session={pageProps?.session}>
             <div className='flex min-h-screen flex-col'>
                 {/* Sticky Header */}
                 <header className='fixed top-0 left-0 right-0 z-40 bg-background/60 backdrop-blur-md border-b'>
