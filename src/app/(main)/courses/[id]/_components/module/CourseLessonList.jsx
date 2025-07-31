@@ -6,8 +6,7 @@ import { getLesson } from '@/queries/lessons';
 const CourseLessonList = async ({lessonId}) => {
 
     const lesson = await getLesson(lessonId)
-    console.log(lesson);
-
+    //console.log(lesson);
     return (
         <div>
 

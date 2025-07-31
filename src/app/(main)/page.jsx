@@ -72,7 +72,7 @@ const HomePage = async () => {
           <div className="flex items-center justify-between w-full">
       <SectionTitle>Categories</SectionTitle>
       <Link
-        href="/categories"
+        href="#"
         className="text-sm sm:text-base font-medium hover:opacity-80 flex items-center gap-x-1.5 whitespace-nowrap"
       >
         Browse All <ArrowRightIcon className="h-4 w-4 flex-shrink-0" />
@@ -83,7 +83,8 @@ const HomePage = async () => {
             {categories.map((category) => (
                 <Link
                     key={category.id}
-                    href={`/categories/${category.id}`}
+                    // href={`/categories/${category.id}`}
+                    href={"#"}
                     className="relative overflow-hidden rounded-lg border bg-background p-2 hover:scale-105 transition-transform duration-300"
                 >
                   <div className="flex flex-col items-center justify-between gap-4 p-4 text-center">

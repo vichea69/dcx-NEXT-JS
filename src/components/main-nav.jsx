@@ -19,20 +19,24 @@ const MainNav = ({items,children}) => {
 
     const [loggedInUser, setLoggedInUser] = useState(null);
 
+    // useEffect(() => {
+    //     setLoginSession(session);
+    //     async function fetchMe(){
+    //         try {
+    //             const response = await fetch('/api/me')
+    //             const data = await response.json();
+    //             //console.log(data);
+    //             setLoggedInUser(data);
+    //         } catch (error) {
+    //             //console.error(error);
+    //         }
+    //     }
+    //     fetchMe();
+    // },[session]);
+
     useEffect(() => {
         setLoginSession(session);
-        async function fetchMe(){
-            try {
-                const response = await fetch('/api/me')
-                const data = await response.json();
-                console.log(data);
-                setLoggedInUser(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchMe();
-    },[session]);
+    }, [session]);
 
 
     return (
