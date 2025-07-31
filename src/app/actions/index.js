@@ -1,7 +1,7 @@
 'use server'
 import { signIn } from "@/auth"
 
-export async function ceredntialLogin(formData){
+export async function credentialsLogin(formData){
     try {
         const response = await signIn("credentials", {
             email: formData.get("email"),
