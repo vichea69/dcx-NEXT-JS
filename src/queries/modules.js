@@ -18,11 +18,17 @@ export async function getModule(moduleId) {
         const fetchedModule = await Module.findById(moduleId)
             .populate({
                 path: "lessonIds",
-                model: Lesson
+                model: Lesson,
             })
             .lean();
-        return replaceMongoIdInObject(fetchedModule);
+
+        const result = replaceMongoIdInObject(fetchedModule);
+
+        console.log("✅ Fetched module:", result); // ← HERE!
+
+        return result;
     } catch (error) {
+        console.error("❌ Error fetching module:", error);
         throw new Error(error);
     }
 }

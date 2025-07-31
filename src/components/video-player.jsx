@@ -1,17 +1,18 @@
 "use client";
 
-export const VideoPlayer = ({}) => {
+export const VideoPlayer = ({url}) => {
   return (
     <div className="relative aspect-video">
-      <iframe
-        className="w-full h-full"
-        src="https://www.youtube.com/embed/LJi2tiWiYmI?si=-vs8fO-xzWmu7ztG"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
+        <iframe
+            className="w-full h-full"
+            src={url}
+            title="YouTube video player"
+            frameBorder="0"  // ✅ This is the fix
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+        ></iframe>
     </div>
   );
 };

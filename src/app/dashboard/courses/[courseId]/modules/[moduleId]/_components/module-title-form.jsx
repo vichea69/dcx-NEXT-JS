@@ -40,7 +40,7 @@ export const ModuleTitleForm = ({ initialData, courseId, chapterId }) => {
   const onSubmit = async (values) => {
     try {
       values["slug"] = getSlug(values.title)
-      await updateModule(chapterId,values)
+      await updateModule(chapterId,values);
       toast.success("Module title updated");
       toggleEdit();
       router.refresh();
@@ -50,51 +50,51 @@ export const ModuleTitleForm = ({ initialData, courseId, chapterId }) => {
   };
 
   return (
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
-      <div className="font-medium flex items-center justify-between">
-        Module title
-        <Button variant="ghost" onClick={toggleEdit}>
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
-            <>
-              <Pencil className="h-4 w-4 mr-2" />
-              Edit Title
-            </>
-          )}
-        </Button>
+      <div className="mt-6 border bg-slate-100 rounded-md p-4">
+        <div className="font-medium flex items-center justify-between">
+          Module title
+          <Button variant="ghost" onClick={toggleEdit}>
+            {isEditing ? (
+                <>Cancel</>
+            ) : (
+                <>
+                  <Pencil className="h-4 w-4 mr-2" />
+                  Edit Title
+                </>
+            )}
+          </Button>
+        </div>
+        {!isEditing && <p className="text-sm mt-2">{initialData?.title}</p>}
+        {isEditing && (
+            <Form {...form}>
+              <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4 mt-4"
+              >
+                <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                                disabled={isSubmitting}
+                                placeholder="e.g. 'Introduction to the course'"
+                                {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <div className="flex items-center gap-x-2">
+                  <Button disabled={!isValid || isSubmitting} type="submit">
+                    Save
+                  </Button>
+                </div>
+              </form>
+            </Form>
+        )}
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
-      {isEditing && (
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 mt-4"
-          >
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder="e.g. 'Introduction to the course'"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
-              </Button>
-            </div>
-          </form>
-        </Form>
-      )}
-    </div>
   );
 };

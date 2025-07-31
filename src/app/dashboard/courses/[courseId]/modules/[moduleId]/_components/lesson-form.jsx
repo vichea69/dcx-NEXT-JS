@@ -21,13 +21,13 @@ import { toast } from "sonner";
 import { LessonList } from "./lesson-list";
 import { LessonModal } from "./lesson-modal";
 import { getSlug } from "@/lib/convertData";
-import {createLesson, reOrderLesson} from "@/app/actions/lesson";
+import { createLesson, reOrderLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   title: z.string().min(1),
 });
 
-export const LessonForm = ({ initialData, moduleId, courseId }) => {
+export const LessonForm = ({ initialData, moduleId,courseId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [lessons, setLessons] = useState(initialData);
   const router = useRouter();
@@ -35,6 +35,7 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const [lessonToEdit, setLessonToEdit] = useState(null);
+
   const toggleCreating = () => setIsCreating((current) => !current);
   const toggleEditing = () => setIsEditing((current) => !current);
 
@@ -88,9 +89,10 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
   };
 
   const onEdit = (id) => {
-    const foundLesson = lessons.find((lesson) => lesson.id === id);
+    const foundLesson = lessons.find(lessons => lessons.id === id);
     setLessonToEdit(foundLesson);
     setIsEditing(true);
+    console.log(foundLesson);
   };
 
   return (
@@ -162,7 +164,7 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
               Drag & Drop to reorder the modules
             </p>
         )}
-        <LessonModal open={isEditing} setOpen={setIsEditing} courseId={courseId} moduleId={moduleId} lessonToEdit={lessonToEdit} />
+        <LessonModal open={isEditing} setOpen={setIsEditing} courseId={courseId} lesson={lessonToEdit} />
       </div>
   );
 };
