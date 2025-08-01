@@ -52,3 +52,23 @@ export async function updateLesson(lessonId, data) {
         throw new Error(err.message || "Failed to update lesson");
     }
 }
+export async function changeLessonPublishState(lessonId) {
+    const lesson = await Lesson.findById(lessonId);
+    try {
+        const res = await Lesson.findByIdAndUpdate(lessonId, { active: !lesson.active }, { lean: true });
+        return res.active
+
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+export async function deleteLesson(lessonId, moduleId) {
+    try {
+        const lessonModule = await Module.findById(moduleId);
+        lessonModule.lessonIds.pull(lessonId);
+        await Lesson.findByIdAndDelete(lessonId);
+        await lessonModule.save();
+    } catch (err) {
+        throw new Error(err);
+    }
+}
