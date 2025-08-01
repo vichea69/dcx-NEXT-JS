@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const quizesetSchema = new Schema({
+const quizsetSchema = new Schema({
     title: {
         required: true,
         type: String
@@ -19,4 +19,4 @@ const quizesetSchema = new Schema({
     },
 
 });
-export const Quizset = mongoose.models.Quizset ?? mongoose.model("Quizset", quizesetSchema);
+export const Quizset = mongoose.models.Quizset ?? mongoose.model("Quizset", quizsetSchema);

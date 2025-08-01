@@ -13,6 +13,8 @@ import { Delete } from "lucide-react";
 import { Trash } from "lucide-react";
 import { CircleCheck } from "lucide-react";
 import { Circle } from "lucide-react";
+import { getQuizSetById } from "@/queries/quizzes";
+
 const initialQuizes = [
   {
     id: 1,
@@ -59,7 +61,13 @@ const initialQuizes = [
     ],
   },
 ];
-const EditQuizSet = () => {
+const EditQuizSet = async ({ params: { quizSetId } }) => {
+
+  const quizSet = await getQuizSetById(quizSetId);
+  console.log(quizSet);
+
+
+
   const [quizes, setQuizes] = useState(initialQuizes);
   return (
     <>
