@@ -1,6 +1,7 @@
 import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData";
 import { Quizset } from "@/model/quizset-model";
 import { Quiz } from "@/model/quizzes-model";
+import connectToDB from "../../service/mongo";
 
 
 export async function getAllQuizSets(excludeUnPublished) {
@@ -18,6 +19,7 @@ export async function getAllQuizSets(excludeUnPublished) {
 }
 
 export async function getQuizSetById(id) {
+    const db = await connectToDB();
     try {
         const quizSet = await Quizset.findById(id)
             .populate({

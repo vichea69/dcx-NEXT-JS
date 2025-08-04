@@ -1,27 +1,27 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const quizzesSchema = new Schema({ 
-    title:{
+const quizzesSchema = new Schema({
+    title: {
         required: true,
         type: String
-    },    
-    description:{ 
+    },
+    description: {
         type: String
     },
-    slug:{ 
-        type: String
-    }, 
-    explanations :{ 
+    slug: {
         type: String
     },
-    options:{ 
+    explanations: {
+        type: String
+    },
+    options: {
         type: Array
-    },  
-    mark :{
+    },
+    mark: {
         required: true,
         default: 5,
         type: Number
-    }, 
- 
+    },
+
 });
-export const Quiz = mongoose.models.Quiz ?? mongoose.model("Quiz",quizzesSchema);
+export const Quiz = mongoose.models.Quiz ?? mongoose.model("Quiz", quizzesSchema);
