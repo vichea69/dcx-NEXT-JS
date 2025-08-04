@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }) => {
         <Sidebar />
       </div>
       <main className="lg:pl-56 pt-[80px] h-full">{children}</main>
-       <Toaster position="top-right" richColors />
+      <Toaster position="top-center" richColors />
     </div>
   );
 };

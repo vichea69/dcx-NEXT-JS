@@ -5,6 +5,7 @@ import connectToDB from "../../service/mongo";
 
 
 export async function getAllQuizSets(excludeUnPublished) {
+    const db = await connectToDB();
     try {
         let quizSets = [];
         if (excludeUnPublished) {
@@ -27,6 +28,14 @@ export async function getQuizSetById(id) {
                 model: Quiz,
             }).lean();
         return replaceMongoIdInObject(quizSet);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+export async function createQuiz(quizData) {
+    try {
+        const quiz = await Quiz.create(quizData);
+        return quiz._id.toString();
     } catch (error) {
         throw new Error(error);
     }

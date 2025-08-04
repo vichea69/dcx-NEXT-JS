@@ -7,10 +7,11 @@ import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData
 import { getEnrollmentsForCourse } from "./enrollments";
 import { getTestimonialsForCourse } from "./testimonials";
 import connectToDB from "../../service/mongo.js";
+import { Lesson } from "@/model/lesson.model";
 
 export async function getCourseList() {
     const db = await connectToDB();
-    const courses = await Course.find({active:true}).select(["title","subtitle","thumbnail","modules","price","category","instructor"]).populate({
+    const courses = await Course.find({ active: true }).select(["title", "subtitle", "thumbnail", "modules", "price", "category", "instructor"]).populate({
         path: "category",
         model: Category
     }).populate({
@@ -45,13 +46,17 @@ export async function getCourseDetails(id) {
             }
         }).populate({
             path: "modules",
-            model: Module
+            model: Module,
+            populate: {
+                path: "lessonIds",
+                model: Lesson,
+            }
         }).lean();
     return replaceMongoIdInObject(course);
 }
 
 
-function groupBy(array, keyFn){
+function groupBy(array, keyFn) {
     return array.reduce((acc, item) => {
         const key = keyFn(item);
         if (!acc[key]) {
@@ -59,22 +64,22 @@ function groupBy(array, keyFn){
         }
         acc[key].push(item);
         return acc
-    },{});
+    }, {});
 }
 
 
-export async function getCourseDetailsByInstructor(instructorId,expand){
+export async function getCourseDetailsByInstructor(instructorId, expand) {
     const db = await connectToDB();
-    const publishCourses = await Course.find({instructor: instructorId, active:true })
-        .populate({path: "category", model: Category })
-        .populate({path: "testimonials", model: Testimonial })
-        .populate({ path: "instructor", model: User})
+    const publishCourses = await Course.find({ instructor: instructorId, active: true })
+        .populate({ path: "category", model: Category })
+        .populate({ path: "testimonials", model: Testimonial })
+        .populate({ path: "instructor", model: User })
         .lean();
 
     const enrollments = await Promise.all(
         publishCourses.map(async (course) => {
             const enrollment = await getEnrollmentsForCourse(course.
-            _id.toString());
+                _id.toString());
             return enrollment;
         })
     );
@@ -88,18 +93,18 @@ export async function getCourseDetailsByInstructor(instructorId,expand){
     const totalRevenue = publishCourses.reduce((acc, course) => {
         const enrollmentsForCourse = groupByCourses[course._id] || [];
         return acc + enrollmentsForCourse.length * course.price;
-    },0);
+    }, 0);
 
     //console.log(totalRevenue);
 
-    const totalEnrollments = enrollments.reduce(( acc, obj )=> {
+    const totalEnrollments = enrollments.reduce((acc, obj) => {
         return acc + obj.length;
-    },0);
+    }, 0);
 
     const tesimonials = await Promise.all(
         publishCourses.map(async (course) => {
             const tesimonial = await getTestimonialsForCourse(course.
-            _id.toString());
+                _id.toString());
             return tesimonial;
         })
     );
@@ -107,7 +112,7 @@ export async function getCourseDetailsByInstructor(instructorId,expand){
     const totalTestimonials = tesimonials.flat();
     const avgRating = (totalTestimonials.reduce(function (acc, obj) {
         return acc + obj.rating;
-    },0)) / totalTestimonials.length;
+    }, 0)) / totalTestimonials.length;
 
     const firstName = publishCourses.length > 0 ? publishCourses[0]?.instructor?.
         firstName : "Unknown";
@@ -122,20 +127,20 @@ export async function getCourseDetailsByInstructor(instructorId,expand){
         profilePicture : "Unknown";
 
     if (expand) {
-        const allCourses = await Course.find({instructor: instructorId }).lean();
-        return{
-            "courses" : allCourses?.flat(),
+        const allCourses = await Course.find({ instructor: instructorId }).lean();
+        return {
+            "courses": allCourses?.flat(),
             "enrollments": enrollments?.flat(),
-            "reviews" : totalTestimonials,
+            "reviews": totalTestimonials,
         }
     }
 
     return {
-        "courses" : publishCourses.length,
+        "courses": publishCourses.length,
         "enrollments": totalEnrollments,
-        "reviews" : totalTestimonials.length,
-        "ratings" : avgRating.toPrecision(2),
-        "inscourses" : publishCourses,
+        "reviews": totalTestimonials.length,
+        "ratings": avgRating.toPrecision(2),
+        "inscourses": publishCourses,
         "revenue": totalRevenue,
         fullInsName,
         Designation,
