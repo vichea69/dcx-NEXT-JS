@@ -21,7 +21,8 @@ import { replaceMongoIdInArray } from "@/lib/convertData";
 import { ObjectId } from "mongoose";
 import { getAllQuizSets } from "@/queries/quizzes";
 
-const EditCourse = async ({ params: { courseId } }) => {
+const EditCourse = async ({ params }) => {
+  const { courseId } = await params;
 
   const course = await getCourseDetails(courseId);
   const categories = await getCategories();
