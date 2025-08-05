@@ -1,9 +1,12 @@
+import { Badge } from "@/components/ui/badge";
+import { BookOpen } from "lucide-react";
+import Image from "next/image";
+import EnrolledCourseCard from "../../component/enrolled-coursecard";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import {getUserByEmail} from "@/queries/user.js";
-import {getEnrollmentsForUser} from "@/queries/enrollments.js";
-import EnrolledCourseCard from "@/app/(main)/account/component/enrolled-coursecard.jsx";
-
+import { getEnrollmentsForUser } from "@/queries/enrollments";
+import Link from "next/link";
+import { getUserByEmail } from "@/queries/user";
 
 async function EnrolledCourses() {
 
@@ -13,24 +16,30 @@ async function EnrolledCourses() {
 	}
 
 	const loggedInUser = await getUserByEmail(session?.user?.email);
-	console.log(loggedInUser);
 
 	const enrollments = await getEnrollmentsForUser(loggedInUser?.id)
-	console.log(enrollments);
+	//console.log(enrollments);
 
 	return (
 		<div className="grid sm:grid-cols-2 gap-6">
 			{
 				enrollments && enrollments.length > 0 ? (
 					<>
-						{ enrollments.map((enrollment) => (
-							<EnrolledCourseCard key={enrollment?.id} enrollment={enrollment}  />
+						{enrollments.map((enrollment) => (
+							<Link
+								key={enrollment?.id}
+								href={`/courses/${enrollment.course._id.toString()}/lesson`}
+							>
+								<EnrolledCourseCard key={enrollment?.id} enrollment={enrollment} />
+							</Link>
 						))}
 					</>
+
 				) : (
 					<p className="font-bold text-red-700">No Enrollments found!</p>
 				)
 			}
+
 		</div>
 	);
 }

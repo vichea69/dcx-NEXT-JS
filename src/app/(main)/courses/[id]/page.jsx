@@ -23,7 +23,7 @@ export const revalidate = 600; // 10 minutes
 // export const dynamic = "force-static"; // uncomment if the route can be fully static
 
 export default async function SingleCoursePage({ params }) {
-    const { id } = params; // no await
+    const { id } = await params; // ✅ await params first
     const course = await getCourseDetails(id);
 
     return (

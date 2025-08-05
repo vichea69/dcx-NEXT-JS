@@ -1,13 +1,13 @@
 import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData";
 import { Enrollment } from "@/model/enrollment-model";
-import {Course} from "@/model/course-model.js";
+import { Course } from "@/model/course-model.js";
 
-export async function getEnrollmentsForCourse(courseId){
-    const enrollments = await Enrollment.find({course: courseId}).lean();
+export async function getEnrollmentsForCourse(courseId) {
+    const enrollments = await Enrollment.find({ course: courseId }).lean();
     return replaceMongoIdInArray(enrollments);
 }
 
-export async function enrollForCourse(courseId, userId, paymentMethod){
+export async function enrollForCourse(courseId, userId, paymentMethod) {
 
 
     const newEnrollment = {
@@ -28,7 +28,7 @@ export async function enrollForCourse(courseId, userId, paymentMethod){
 export async function getEnrollmentsForUser(userId) {
 
     try {
-        const enrollments = await Enrollment.find({ student: userId})
+        const enrollments = await Enrollment.find({ student: userId })
             .populate({
                 path: "course",
                 model: Course,
@@ -37,4 +37,22 @@ export async function getEnrollmentsForUser(userId) {
     } catch (err) {
         throw new Error(err);
     }
+}
+export async function hasEnrollmentForCourse(courseId, studentId) {
+    try {
+        const enrollment = await Enrollment.findOne({
+            course: courseId,
+            student: studentId
+        }).populate({
+            path: "course",
+            model: Course
+        }).lean();
+
+        if (!enrollment) return false;
+
+        return true;
+    } catch (error) {
+        throw new Error(error);
+    }
+
 }
