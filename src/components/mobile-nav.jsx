@@ -13,9 +13,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 const MobileNav = ({ items, children }) => {
   useLockBody();
+  const t = useTranslations('Nav');
 
   const { data: session } = useSession();
   const [loginSession, setLoginSession] = useState(null);
@@ -52,20 +54,20 @@ const MobileNav = ({ items, children }) => {
               href="/login"
               className={cn(buttonVariants({ size: "sm" }), "px-4")}
             >
-              Login
+              {t('login')}
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">
-                  Register
+                  {t('register')}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-4">
                 <DropdownMenuItem asChild>
-                  <Link href="/register/student">Student</Link>
+                  <Link href="/register/student">{t('student')}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/register/instructor">Instructor</Link>
+                  <Link href="/register/instructor">{t('instructor')}</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { changePassword } from '@/app/actions/account';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
-const ChangePassword = ({email}) => {
+const ChangePassword = ({ email }) => {
     //console.log(email);
 
     const [passwordState, setPasswordState] = useState({
-        "oldPassword" : "",
-        "newPassword" : "",
+        "oldPassword": "",
+        "newPassword": "",
     });
 
     const handleChange = (event) => {
@@ -26,7 +27,7 @@ const ChangePassword = ({email}) => {
         event.preventDefault();
 
         try {
-            await changePassword(email,passwordState?.oldPassword, passwordState?.newPassword);
+            await changePassword(email, passwordState?.oldPassword, passwordState?.newPassword);
             toast.success("Password changed successfully")
         } catch (error) {
             toast.error(`Error: ${error.message}`);
@@ -35,50 +36,45 @@ const ChangePassword = ({email}) => {
 
 
 
+    const t = useTranslations('Account');
     return (
         <div>
-            <h5 className="text-lg font-semibold mb-4">
-                Change password :
-            </h5>
+            <h5 className="text-lg font-semibold mb-4">{t('changePassword')} :</h5>
             <form onSubmit={doPasswordChange}>
                 <div className="grid grid-cols-1 gap-5">
                     <div>
-                        <Label className="mb-2 block">Old password :</Label>
+                        <Label className="mb-2 block">{t('oldPassword')} :</Label>
                         <Input
                             type="password"
                             id="oldPassword"
                             name="oldPassword"
                             onChange={handleChange}
-                            placeholder="Old password"
+                            placeholder={t('oldPassword')}
                             required=""
                         />
                     </div>
                     <div>
-                        <Label className="mb-2 block">New password :</Label>
+                        <Label className="mb-2 block">{t('newPassword')} :</Label>
                         <Input
                             type="password"
                             id="newPassword"
                             name="newPassword"
                             onChange={handleChange}
-                            placeholder="New password"
+                            placeholder={t('newPassword')}
                             required=""
                         />
                     </div>
                     <div>
-                        <Label className="mb-2 block">
-                            Re-type New password :
-                        </Label>
+                        <Label className="mb-2 block">{t('retypeNewPassword')} :</Label>
                         <Input
                             type="password"
-                            placeholder="Re-type New password"
+                            placeholder={t('retypeNewPassword')}
                             required=""
                         />
                     </div>
                 </div>
                 {/*end grid*/}
-                <Button className="mt-5" type="submit">
-                    Save password
-                </Button>
+                <Button className="mt-5" type="submit">{t('savePassword')}</Button>
             </form>
         </div>
     );

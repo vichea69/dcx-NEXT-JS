@@ -11,9 +11,11 @@ import {
 
 
 import CourseModuleList from './module/CourseModuleList';
+import { getTranslations } from 'next-intl/server';
 
-const CourseCurriculam = ({ course }) => {
+const CourseCurriculam = async ({ course }) => {
   // console.log(course)
+  const t = await getTranslations('Course');
 
   const totalDuration = course?.modules.map((item) => {
     return item.lessonIds.reduce(function (acc, obj) {
@@ -29,14 +31,14 @@ const CourseCurriculam = ({ course }) => {
       <div className="flex gap-x-5 items-center justify-center flex-wrap mt-4 mb-6 text-gray-600 text-sm">
         <span className="flex items-center gap-1.5">
           <BookCheck className="w-4 h-4" />
-          {course?.modules?.length} Chapters
+          {course?.modules?.length} {t('chapters')}
         </span>
         <span className="flex items-center gap-1.5">
           <Clock10 className="w-4 h-4" />
-          {(totalDuration / 3660).toPrecision(2)}+ Hours
+          {(totalDuration / 3660).toPrecision(2)}+ {t('hours')}
         </span>
         <span className="flex items-center gap-1.5">
-          <Radio className="w-4 h-4" />4 Live Class
+          <Radio className="w-4 h-4" />4 {t('liveClass')}
         </span>
       </div>
 

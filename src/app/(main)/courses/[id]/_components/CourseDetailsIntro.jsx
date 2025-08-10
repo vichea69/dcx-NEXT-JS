@@ -7,6 +7,7 @@ import EnrollCourse from '@/components/enroll-course';
 import { auth } from '@/auth';
 import { hasEnrollmentForCourse } from '@/queries/enrollments';
 import { getUserByEmail } from '@/queries/user';
+import { getTranslations } from 'next-intl/server';
 
 const CourseDetailsIntro = async ({ course }) => {
 
@@ -14,6 +15,7 @@ const CourseDetailsIntro = async ({ course }) => {
   const loogedInUser = await getUserByEmail(session?.user?.email);
   const hasEnrollment = await hasEnrollmentForCourse(course?.id, loogedInUser?.id);
   //console.log(hasEnrollment)
+  const t = await getTranslations('Course');
 
 
   return (
@@ -36,7 +38,7 @@ const CourseDetailsIntro = async ({ course }) => {
                 {
                   hasEnrollment ? (
                     <Link href={`/courses/${course?.id}/lesson`} className={cn(buttonVariants({ size: "lg" }))}>
-                      Access Course
+                      {t('accessCourse')}
                     </Link>
                   ) : (
                     <EnrollCourse courseId={course?.id} />
@@ -50,7 +52,7 @@ const CourseDetailsIntro = async ({ course }) => {
                     buttonVariants({ variant: "outline", size: "lg" })
                   )}
                 >
-                  See Intro
+                  {t('seeIntro')}
                 </Link>
                 <Link
                   href=""
@@ -58,7 +60,7 @@ const CourseDetailsIntro = async ({ course }) => {
                     buttonVariants({ variant: "destructive", size: "lg" })
                   )}
                 >
-                  Price : ${course?.price}
+                  {t('price')} : ${course?.price}
                 </Link>
               </div>
             </div>

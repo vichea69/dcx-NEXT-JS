@@ -1,16 +1,18 @@
-import { Carousel,CarouselContent,CarouselItem,CarouselNext,CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Image from "next/image";
 import { SectionTitle } from "@/components/section-title";
 import StarRating from "@/components/start-rating";
- 
-const Testimonials = ({testimonials}) => {
-   // console.log(testimonials);
+import { getTranslations } from 'next-intl/server';
 
-    return (
-       
-      <section className="pb-8 md:pb-12 lg:pb-24">
+const Testimonials = async ({ testimonials }) => {
+  // console.log(testimonials);
+  const t = await getTranslations('Course');
+
+  return (
+
+    <section className="pb-8 md:pb-12 lg:pb-24">
       <div className="container">
-        <SectionTitle className="mb-6">Testimonials</SectionTitle>
+        <SectionTitle className="mb-6">{t('testimonials')}</SectionTitle>
         <Carousel
           opts={{
             align: "start",
@@ -37,9 +39,9 @@ const Testimonials = ({testimonials}) => {
                       />
                       <div>
                         <p className="mt-0.5 text-lg font-medium text-gray-900">
-                        {testimonial?.user?.first_name} {' '} {testimonial?.user?.last_name}
+                          {testimonial?.user?.first_name} {' '} {testimonial?.user?.last_name}
                         </p>
-                        <div className="flex justify-center gap-0.5 text-yellow-600"> 
+                        <div className="flex justify-center gap-0.5 text-yellow-600">
                           <StarRating rating={testimonial?.rating} />
                         </div>
                       </div>
@@ -55,7 +57,7 @@ const Testimonials = ({testimonials}) => {
         </Carousel>
       </div>
     </section>
-    );
+  );
 };
 
 export default Testimonials;

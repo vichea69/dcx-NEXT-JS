@@ -4,13 +4,15 @@ import CourseCurriculam from "./CourseCurriculam";
 import CourseInstructor from "./CourseInstructor";
 import Image from "next/image";
 import { formatMyDate } from "@/lib/date";
+import { getTranslations } from 'next-intl/server';
 
-const CourseDetails = ({ course }) => {
+const CourseDetails = async ({ course }) => {
   // Safely handle undefined course or modifiedOn
   let lastModifiedDate = "N/A";
   if (course?.modifiedOn) {
     lastModifiedDate = formatMyDate(course.modifiedOn);
   }
+  const t = await getTranslations('Course');
 
   return (
     <section className="py-8 md:py-12 lg:py-24">
@@ -41,7 +43,7 @@ const CourseDetails = ({ course }) => {
             </p>
           </div>
           <div className="flex items-center gap-2 text-sm">
-            <span className="text-success font-semibold">Last Updated:</span>
+            <span className="text-success font-semibold">{t('lastUpdated')}:</span>
             <span>{lastModifiedDate}</span>
           </div>
         </div>
@@ -50,9 +52,9 @@ const CourseDetails = ({ course }) => {
         <div className="my-6">
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-3 my-6 max-w-[768px]">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
-              <TabsTrigger value="instructor">Instructor</TabsTrigger>
+              <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
+              <TabsTrigger value="curriculum">{t('curriculum')}</TabsTrigger>
+              <TabsTrigger value="instructor">{t('instructor')}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview">
@@ -60,11 +62,11 @@ const CourseDetails = ({ course }) => {
             </TabsContent>
 
             <TabsContent value="curriculum">
-              <CourseCurriculam course = {course} />
+              <CourseCurriculam course={course} />
             </TabsContent>
 
             <TabsContent value="instructor">
-              <CourseInstructor course = {course} />
+              <CourseInstructor course={course} />
             </TabsContent>
           </Tabs>
         </div>

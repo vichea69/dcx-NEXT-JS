@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { getEnrollmentsForUser } from "@/queries/enrollments";
 import Link from "next/link";
 import { getUserByEmail } from "@/queries/user";
+import { getTranslations } from 'next-intl/server';
 
 async function EnrolledCourses() {
 
@@ -20,6 +21,7 @@ async function EnrolledCourses() {
 	const enrollments = await getEnrollmentsForUser(loggedInUser?.id)
 	//console.log(enrollments);
 
+	const t = await getTranslations('Account');
 	return (
 		<div className="grid sm:grid-cols-2 gap-6">
 			{
@@ -36,7 +38,7 @@ async function EnrolledCourses() {
 					</>
 
 				) : (
-					<p className="font-bold text-red-700">No Enrollments found!</p>
+					<p className="font-bold text-red-700">{t('noEnrollments')}</p>
 				)
 			}
 

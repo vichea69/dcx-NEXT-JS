@@ -5,14 +5,16 @@ import { SessionProvider } from 'next-auth/react'
 import MainNav from '@/components/main-nav'
 import SiteFooter from '@/components/site-footer'
 import { Toaster } from 'sonner'
-
-const navLinks = [
-    { title: 'Features', href: '/features' },
-    { title: 'Pricing', href: '/pricing' },
-    { title: 'Blog', href: '/blog' },
-]
+import { useTranslations } from 'next-intl'
 
 const MainLayout = ({ children, pageProps }) => {
+    const t = useTranslations('Nav')
+
+    const navLinks = [
+        { title: t('features'), href: '/features' },
+        { title: t('pricing'), href: '/pricing' },
+        { title: t('blog'), href: '/blog' },
+    ]
     return (
         <SessionProvider session={pageProps?.session}>
             <div className='flex min-h-screen flex-col'>
