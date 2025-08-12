@@ -8,7 +8,7 @@ import { ArrowRightIcon } from "lucide-react";
 import { BookOpen } from "lucide-react";
 import EnrollCourse from '@/components/enroll-course';
 
-const CourseCard = ({course}) => {
+const CourseCard = ({ course }) => {
     return (
         <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
 
@@ -16,7 +16,7 @@ const CourseCard = ({course}) => {
 
                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
                     <Image
-                        src={`/assets/images/courses/${course?.thumbnail}`}
+                        src={course?.thumbnail?.startsWith('http') ? course.thumbnail : `/assets/images/courses/${course?.thumbnail}`}
                         alt={"course"}
                         className="object-cover"
                         fill
@@ -52,7 +52,7 @@ const CourseCard = ({course}) => {
                     {formatPrice(course?.price)}
                 </p>
 
-                <EnrollCourse asLink={true} courseId={course?.id}  />
+                <EnrollCourse asLink={true} courseId={course?.id} />
             </div>
 
 

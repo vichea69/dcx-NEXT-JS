@@ -54,7 +54,7 @@ const EnrolledCourseCard = async ({ enrollment }) => {
         >
             <div className="relative w-full aspect-video rounded-md overflow-hidden">
                 <Image
-                    src={`/assets/images/courses/${enrollment?.course?.thumbnail}`}
+                    src={enrollment?.course?.thumbnail?.startsWith('http') ? enrollment.course.thumbnail : `/assets/images/courses/${enrollment?.course?.thumbnail}`}
                     alt={enrollment?.course?.title}
                     className="object-cover"
                     fill

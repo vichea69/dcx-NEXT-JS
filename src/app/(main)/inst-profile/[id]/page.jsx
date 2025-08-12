@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const InstructorProfile = async ({ params: {id} }) => {
+const InstructorProfile = async ({ params: { id } }) => {
 
     const courseDetailsByInstructor = await getCourseDetailsByInstructor(id.toString());
     //console.log(courseDetailsByInstructor);
@@ -66,7 +66,7 @@ const InstructorProfile = async ({ params: {id} }) => {
                         </div>
                         <p className="text-gray-600 text-xs leading-[1.8] text-justify">
                             Hi! I'm Kazi Ariyan. I'm a web developer with a serious love for teaching I am a founder of easy Learning and a passionate Web Developer, Programmer & Instructor.
-                            <br/>
+                            <br />
                             I am working online for the last 9 years and have created several successful websites running on the internet. I try to create a project-based course that helps you to learn professionally and make you fell as a complete developer. easy learning exists to help you succeed in life.
 
                         </p>
@@ -85,7 +85,7 @@ const InstructorProfile = async ({ params: {id} }) => {
                                             <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
                                                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
                                                     <Image
-                                                        src={`/assets/images/courses/${course?.thumbnail}`}
+                                                        src={course?.thumbnail?.startsWith('http') ? course.thumbnail : `/assets/images/courses/${course?.thumbnail}`}
                                                         alt={course.title}
                                                         className="object-cover"
                                                         fill

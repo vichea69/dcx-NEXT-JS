@@ -27,21 +27,21 @@ export const ImageForm = ({ initialData, courseId }) => {
 
   useEffect(() => {
     if (file) {
-      async function uploadFile(){
+      async function uploadFile() {
         try {
           const formData = new FormData();
           formData.append("files", file[0]);
-          formData.append("destination", "./public/assets/images/courses");
-          formData.append("courseId",courseId);
+          formData.append("courseId", courseId);
           const response = await fetch("/api/upload", {
             method: "POST",
             body: formData
           });
-          const result = await response.text();
-          console.log(result);
-          if (response.status === 200) {
-            initialData.imageUrl = `/assets/images/courses/${file[0].path}`;
-            toast.success(result);
+          const result = await response.json();
+          if (response.ok) {
+            // Prefer server-provided imageUrl (R2 public URL). Fallback to local path if not provided.
+            const uploadedUrl = result?.imageUrl || `/assets/images/courses/${file[0].path}`;
+            initialData.imageUrl = uploadedUrl;
+            toast.success(result?.message || "File uploaded successfully");
             toggleEdit();
             router.refresh();
           }
@@ -53,7 +53,7 @@ export const ImageForm = ({ initialData, courseId }) => {
       uploadFile();
     }
 
-  },[file]);
+  }, [file]);
 
 
 
@@ -72,48 +72,48 @@ export const ImageForm = ({ initialData, courseId }) => {
   };
 
   return (
-      <div className="mt-6 border bg-gray-50 rounded-md p-4">
-        <div className="font-medium flex items-center justify-between">
-          Course Image
-          <Button variant="ghost" onClick={toggleEdit}>
-            {isEditing && <>Cancel</>}
-            {!isEditing && !initialData.imageUrl && (
-                <>
-                  <PlusCircle className="h-4 w-4 mr-2" />
-                  Add an image
-                </>
-            )}
-            {!isEditing && initialData.imageUrl && (
-                <>
-                  <Pencil className="h-4 w-4 mr-2" />
-                  Edit image
-                </>
-            )}
-          </Button>
-        </div>
-        {!isEditing &&
-            (!initialData.imageUrl ? (
-                <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
-                  <ImageIcon className="h-10 w-10 text-slate-500" />
-                </div>
-            ) : (
-                <div className="relative aspect-video mt-2">
-                  <Image
-                      alt="Upload"
-                      fill
-                      className="object-cover rounded-md"
-                      src={initialData.imageUrl}
-                  />
-                </div>
-            ))}
-        {isEditing && (
-            <div>
-              <UploadDropzone onUpload={(file) => setFile(file)} />
-              <div className="text-xs text-muted-foreground mt-4">
-                16:9 aspect ratio recommended
-              </div>
-            </div>
-        )}
+    <div className="mt-6 border bg-gray-50 rounded-md p-4">
+      <div className="font-medium flex items-center justify-between">
+        Course Image
+        <Button variant="ghost" onClick={toggleEdit}>
+          {isEditing && <>Cancel</>}
+          {!isEditing && !initialData.imageUrl && (
+            <>
+              <PlusCircle className="h-4 w-4 mr-2" />
+              Add an image
+            </>
+          )}
+          {!isEditing && initialData.imageUrl && (
+            <>
+              <Pencil className="h-4 w-4 mr-2" />
+              Edit image
+            </>
+          )}
+        </Button>
       </div>
+      {!isEditing &&
+        (!initialData.imageUrl ? (
+          <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
+            <ImageIcon className="h-10 w-10 text-slate-500" />
+          </div>
+        ) : (
+          <div className="relative aspect-video mt-2">
+            <Image
+              alt="Upload"
+              fill
+              className="object-cover rounded-md"
+              src={initialData.imageUrl}
+            />
+          </div>
+        ))}
+      {isEditing && (
+        <div>
+          <UploadDropzone onUpload={(file) => setFile(file)} />
+          <div className="text-xs text-muted-foreground mt-4">
+            16:9 aspect ratio recommended
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
