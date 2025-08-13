@@ -1,56 +1,69 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const courseSchema = new Schema({
-    title:{
+    title: {
         required: true,
         type: String
     },
-    subtitle:{
+    // Khmer localized fields
+    titleKh: {
+        type: String,
+        default: undefined,
+    },
+    subtitle: {
         type: String,
         default: "subtitle"
     },
-    description:{
+    subtitleKh: {
+        type: String,
+        default: undefined,
+    },
+    description: {
         required: true,
         type: String
     },
-    thumbnail:{
+    descriptionKh: {
+        type: String,
+        default: undefined,
+    },
+    thumbnail: {
         type: String
     },
-    modules:{
+    modules: {
         required: true,
         type: [Schema.ObjectId]
     },
-    price:{
+    price: {
         required: true,
         default: 0,
         type: Number
     },
-    active:{
+    active: {
         required: true,
         default: false,
         type: Boolean
-    },   
-    category:{  type: Schema.ObjectId, ref: "Category" },
+    },
+    category: { type: Schema.ObjectId, ref: "Category" },
 
-    instructor:{  type: Schema.ObjectId, ref: "User" },
+    instructor: { type: Schema.ObjectId, ref: "User" },
 
-    testimonials:[{  type: Schema.ObjectId, ref: "Testimonial" }],
+    testimonials: [{ type: Schema.ObjectId, ref: "Testimonial" }],
 
-    quizSet:{
+    quizSet: {
         type: Schema.ObjectId
     },
-    learning:{
+    learning: {
         type: [String]
-    },  
-    createdOn:{
+    },
+    createdOn: {
         required: true,
         default: Date.now(),
         type: Date
-    },    
-    modifiedOn:{
+    },
+    modifiedOn: {
         required: true,
         default: Date.now(),
         type: Date
     },
 });
-export const Course = mongoose.models.Course ?? mongoose.model("Course",courseSchema);
+export const Course = mongoose.models.Course ?? mongoose.model("Course", courseSchema);

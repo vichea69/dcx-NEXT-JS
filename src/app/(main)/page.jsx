@@ -24,6 +24,10 @@ const HomePage = async ({ params: { locale } }) => {
   const t = (key) => messages.Home[key];
 
   const courses = await getCourseList();
+  const localizedCourses = courses.map(c => ({
+    ...c,
+    localizedTitle: activeLocale === 'kh' ? (c.titleKh || c.title) : c.title,
+  }));
   const categories = await getCategories();
 
   return (
@@ -99,7 +103,7 @@ const HomePage = async ({ params: { locale } }) => {
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {courses.map((course) => (<CourseCard key={course.id} course={course} />))}
+          {localizedCourses.map((course) => (<CourseCard key={course.id} course={course} />))}
         </div>
       </section>
 

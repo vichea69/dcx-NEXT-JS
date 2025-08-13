@@ -24,9 +24,9 @@ const CourseCard = ({ course }) => {
                 </div>
                 <div className="flex flex-col pt-2">
                     <div className="text-lg md:text-base font-medium group-hover:text-sky-700 line-clamp-2">
-                        {course?.title}
+                        {course?.localizedTitle || course?.title}
                     </div>
-                    <p className="text-xs text-muted-foreground">{course?.category?.title}</p>
+                    <p className="text-xs text-muted-foreground">{course?.category?.localizedTitle || course?.category?.title}</p>
                     <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
                         <div className="flex items-center gap-x-1 text-slate-500">
                             <div>
@@ -35,14 +35,6 @@ const CourseCard = ({ course }) => {
                             <span>{course?.modules?.length} Chapters</span>
                         </div>
                     </div>
-
-                    {/* <CourseProgress
-              size="sm"
-              value={80}
-              variant={110 === 100 ? "success" : ""}
-            /> */}
-
-
                 </div>
 
             </Link>

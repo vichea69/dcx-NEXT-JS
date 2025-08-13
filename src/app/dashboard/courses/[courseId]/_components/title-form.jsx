@@ -17,13 +17,12 @@ import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {updateCourse} from "@/app/actions/course.js";
-import {toast} from "sonner";
+import { updateCourse } from "@/app/actions/course.js";
+import { toast } from "sonner";
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title is required",
-  }),
+  title: z.string().min(1, { message: "Title is required" }),
+  titleKh: z.string().optional(),
 });
 
 export const TitleForm = ({ initialData = {}, courseId }) => {
@@ -66,7 +65,12 @@ export const TitleForm = ({ initialData = {}, courseId }) => {
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
+      {!isEditing && (
+        <div className="text-sm mt-2 space-y-1">
+          <p>EN: {initialData.title}</p>
+          {initialData.titleKh && <p>KH: {initialData.titleKh}</p>}
+        </div>
+      )}
       {isEditing && (
         <Form {...form}>
           <form
@@ -82,6 +86,22 @@ export const TitleForm = ({ initialData = {}, courseId }) => {
                     <Input
                       disabled={isSubmitting}
                       placeholder="e.g. 'Advanced web development'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="titleKh"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="Khmer title"
                       {...field}
                     />
                   </FormControl>

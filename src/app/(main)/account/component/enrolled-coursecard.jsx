@@ -62,7 +62,7 @@ const EnrolledCourseCard = async ({ enrollment }) => {
             </div>
             <div className="flex flex-col pt-2">
                 <div className="text-lg md:text-base font-medium group-hover:text-sky-700 line-clamp-2">
-                    {enrollment?.course?.title}
+                    {enrollment?.course?.localizedTitle || enrollment?.course?.title}
                 </div>
                 <span className="text-xs text-muted-foreground">{courseCategory?.title}</span>
                 <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">

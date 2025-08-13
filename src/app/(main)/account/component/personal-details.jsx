@@ -58,7 +58,6 @@ const PersonalDetails = ({ userInfo }) => {
                             name="firstName"
                             value={infoState?.firstName}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div>
@@ -72,7 +71,6 @@ const PersonalDetails = ({ userInfo }) => {
                             name="lastName"
                             value={infoState?.lastName}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div>

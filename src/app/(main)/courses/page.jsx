@@ -4,12 +4,19 @@ import FilterCourseMobile from "./_components/FilterCourseMobile";
 import ActiveFilters from "./_components/ActiveFilters";
 import FilterCourse from "./_components/FilterCourse";
 import CourseCard from "./_components/CourseCard";
-import {getCourseList} from "@/queries/courses.js";
+import { getCourseList } from "@/queries/courses.js";
+import { cookies } from "next/headers";
 
 
 const CoursesPage = async () => {
 
     const courses = await getCourseList();
+    const cookieStore = await cookies();
+    const activeLocale = cookieStore.get('locale')?.value || 'en';
+    const localizedCourses = courses.map(c => ({
+        ...c,
+        localizedTitle: activeLocale === 'kh' ? (c.titleKh || c.title) : c.title,
+    }));
 
 
     return (
@@ -22,15 +29,15 @@ const CoursesPage = async () => {
             <div className="flex items-baseline justify-between border-gray-200 border-b pb-6 flex-col gap-4 lg:flex-row flex-wrap">
 
                 <div className="w-full lg:w-auto">
-                    <SearchCourse/>
+                    <SearchCourse />
                 </div>
 
                 <div className="flex items-center justify-end gap-2 max-lg:w-full">
-                    <SortCourse/>
+                    <SortCourse />
 
                     {/* Filter Menus For Mobile */}
 
-                    <FilterCourseMobile/>
+                    <FilterCourseMobile />
                 </div>
             </div>
             {/* header ends */}
@@ -49,11 +56,11 @@ const CoursesPage = async () => {
                     {/* Filters */}
                     {/* these component can be re use for mobile also */}
                     <div className="mb-6 lg:mb-0">
-                        <FilterCourse/>
+                        <FilterCourse />
                     </div>
                     {/* Course grid */}
                     <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-                        {courses.map((course) => {
+                        {localizedCourses.map((course) => {
                             return (
                                 <CourseCard key={course.id} course={course} />
                             );

@@ -17,11 +17,11 @@ import { cn } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { updateCourse } from "@/app/actions/course";
 
 const formSchema = z.object({
-  description: z.string().min(1, {
-    message: "Description is required",
-  }),
+  description: z.string().min(1, { message: "Description is required" }),
+  descriptionKh: z.string().optional(),
 });
 
 export const DescriptionForm = ({ initialData, courseId }) => {
@@ -34,6 +34,7 @@ export const DescriptionForm = ({ initialData, courseId }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       description: initialData?.description || "",
+      descriptionKh: initialData?.descriptionKh || "",
     },
   });
 
@@ -41,7 +42,8 @@ export const DescriptionForm = ({ initialData, courseId }) => {
 
   const onSubmit = async (values) => {
     try {
-      toast.success("Course updated");
+      await updateCourse(courseId, values);
+      toast.success("Course description has been updated");
       toggleEdit();
       router.refresh();
     } catch (error) {
@@ -65,14 +67,14 @@ export const DescriptionForm = ({ initialData, courseId }) => {
         </Button>
       </div>
       {!isEditing && (
-        <p
-          className={cn(
-            "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
+        <div className="text-sm mt-2 space-y-2">
+          <p className={cn("", !initialData.description && "text-slate-500 italic")}>
+            EN: {initialData.description || "No description"}
+          </p>
+          {initialData.descriptionKh && (
+            <p>KH: {initialData.descriptionKh}</p>
           )}
-        >
-          {initialData.description || "No description"}
-        </p>
+        </div>
       )}
       {isEditing && (
         <Form {...form}>
@@ -89,6 +91,22 @@ export const DescriptionForm = ({ initialData, courseId }) => {
                     <Textarea
                       disabled={isSubmitting}
                       placeholder="e.g. 'This course is about...'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="descriptionKh"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Textarea
+                      disabled={isSubmitting}
+                      placeholder="Khmer description"
                       {...field}
                     />
                   </FormControl>

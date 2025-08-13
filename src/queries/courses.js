@@ -11,7 +11,7 @@ import { Lesson } from "@/model/lesson.model";
 
 export async function getCourseList() {
     const db = await connectToDB();
-    const courses = await Course.find({ active: true }).select(["title", "subtitle", "thumbnail", "modules", "price", "category", "instructor"]).populate({
+    const courses = await Course.find({ active: true }).select(["title", "titleKh", "subtitle", "subtitleKh", "thumbnail", "modules", "price", "category", "instructor"]).populate({
         path: "category",
         model: Category
     }).populate({
@@ -24,13 +24,19 @@ export async function getCourseList() {
         path: "modules",
         model: Module
     }).lean();
-    return replaceMongoIdInArray(courses);
+    const localized = courses.map((c) => {
+        // Note: locale resolution is done server-side per request (cookie 'locale').
+        // Here we don't know the locale, so we keep both fields and UI decides.
+        return c;
+    });
+    return replaceMongoIdInArray(localized);
 }
 
 
 export async function getCourseDetails(id) {
     const db = await connectToDB();
     const course = await Course.findById(id)
+        .select(["title", "titleKh", "subtitle", "subtitleKh", "description", "descriptionKh", "thumbnail", "modules", "price", "category", "instructor", "testimonials"])
         .populate({
             path: "category",
             model: Category

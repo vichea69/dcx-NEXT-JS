@@ -5,6 +5,7 @@ import CourseDetailsIntro from "./_components/CourseDetailsIntro";
 import CourseDetails from "./_components/CourseDetails";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
 // ✅ stream/lazy-load below-the-fold bits (likely client components)
 const Testimonials = dynamic(() => import("./_components/Testimonials"), {
@@ -26,6 +27,17 @@ export default async function SingleCoursePage({ params }) {
     const { id } = await params; // ✅ await params first
     const course = await getCourseDetails(id);
 
+    // Determine active locale from cookie and compute localized fields
+    const cookieStore = await cookies();
+    const activeLocale = cookieStore.get('locale')?.value || 'en';
+
+    const localizedCourse = {
+        ...course,
+        localizedTitle: activeLocale === 'kh' ? (course?.titleKh || course?.title) : course?.title,
+        localizedSubtitle: activeLocale === 'kh' ? (course?.subtitleKh || course?.subtitle) : course?.subtitle,
+        localizedDescription: activeLocale === 'kh' ? (course?.descriptionKh || course?.description) : course?.description,
+    };
+
     return (
         <main className="overflow-x-hidden">
             {/* Mobile-first container & spacing */}
@@ -33,12 +45,12 @@ export default async function SingleCoursePage({ params }) {
 
                 {/* Hero / Intro — keep above the fold lean */}
                 <section className="pt-8 sm:pt-12 md:pt-16">
-                    <CourseDetailsIntro course={course} />
+                    <CourseDetailsIntro course={localizedCourse} />
                 </section>
 
                 {/* Key details */}
                 <section className="pt-6 sm:pt-8 md:pt-10">
-                    <CourseDetails course={course} />
+                    <CourseDetails course={localizedCourse} />
                 </section>
 
                 {/* Testimonials — lazy/streamed, mobile-optimized spacing */}

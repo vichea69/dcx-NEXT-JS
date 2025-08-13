@@ -18,13 +18,13 @@ const CourseDetails = async ({ course }) => {
     <section className="py-8 md:py-12 lg:py-24">
       <div className="container">
         <span className="bg-green-500 px-4 py-0.5 rounded-full text-xs font-medium text-white inline-block">
-          {course?.category?.title}
+          {course?.category?.localizedTitle || course?.category?.title}
         </span>
         <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold 2xl:text-5xl mt-3">
-          {course?.title}
+          {course?.localizedTitle || course?.title}
         </h3>
         <p className="mt-3 text-gray-600 text-sm">
-          {course?.subtitle}
+          {course?.localizedSubtitle || course?.subtitle}
         </p>
 
         {/* Instructor & Last Updated */}

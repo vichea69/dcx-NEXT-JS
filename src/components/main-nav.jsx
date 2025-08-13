@@ -28,7 +28,7 @@ const MainNav = ({ items, children }) => {
           const res = await fetch('/api/me');
           const data = await res.json();
           setLoggedInUser(data);
-        } catch (e) {}
+        } catch (e) { }
       })();
     }
   }, [session]);
@@ -85,8 +85,16 @@ const MainNav = ({ items, children }) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-4">
-                <DropdownMenuItem asChild><Link href="/register/student">{t('student')}</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/register/instructor">{t('instructor')}</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/register/student" onClick={() => { try { document.cookie = 'registerRole=student; path=/; max-age=600'; } catch (e) { } }}>
+                    {t('student')}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/register/instructor" onClick={() => { try { document.cookie = 'registerRole=instructor; path=/; max-age=600'; } catch (e) { } }}>
+                    {t('instructor')}
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

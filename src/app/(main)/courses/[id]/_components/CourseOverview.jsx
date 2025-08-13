@@ -8,7 +8,7 @@ const CourseOverview = async ({ course }) => {
     <>
       <h3 className=" text-2xl">{t('courseDescription')}</h3>
       <p className="mt-4">
-        {course?.description}
+        {course?.localizedDescription || course?.description}
       </p>
       <div className="bg-gray-50 space-y-6 p-8 rounded-md mt-8">
         <h4 className="text-2xl">{t('whatYouWillLearn')}</h4>

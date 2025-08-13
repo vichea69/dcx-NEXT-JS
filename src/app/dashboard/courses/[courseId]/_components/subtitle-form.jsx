@@ -21,9 +21,8 @@ import { updateCourse } from "@/app/actions/course";
 import { toast } from 'sonner';
 
 const formSchema = z.object({
-    subtitle: z.string().min(1, {
-        message: "Title is required",
-    }),
+    subtitle: z.string().min(1, { message: "Subtitle is required" }),
+    subtitleKh: z.string().optional(),
 });
 
 export const SubTitleForm = ({ initialData = {}, courseId }) => {
@@ -41,10 +40,10 @@ export const SubTitleForm = ({ initialData = {}, courseId }) => {
 
     const onSubmit = async (values) => {
         try {
-            await updateCourse(courseId,values)
+            await updateCourse(courseId, values)
             toggleEdit();
             router.refresh();
-            toast.success("Course SubTittle has been updated");
+            toast.success("Course subtitle has been updated");
         } catch (error) {
             toast.error("Something went wrong");
         }
@@ -65,7 +64,12 @@ export const SubTitleForm = ({ initialData = {}, courseId }) => {
                     )}
                 </Button>
             </div>
-            {!isEditing && <p className="text-sm mt-2">{initialData.subtitle}</p>}
+            {!isEditing && (
+                <div className="text-sm mt-2 space-y-1">
+                    <p>EN: {initialData.subtitle}</p>
+                    {initialData.subtitleKh && <p>KH: {initialData.subtitleKh}</p>}
+                </div>
+            )}
             {isEditing && (
                 <Form {...form}>
                     <form
@@ -81,6 +85,22 @@ export const SubTitleForm = ({ initialData = {}, courseId }) => {
                                         <Input
                                             disabled={isSubmitting}
                                             placeholder="e.g. 'Advanced web development'"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="subtitleKh"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            disabled={isSubmitting}
+                                            placeholder="Khmer subtitle"
                                             {...field}
                                         />
                                     </FormControl>
