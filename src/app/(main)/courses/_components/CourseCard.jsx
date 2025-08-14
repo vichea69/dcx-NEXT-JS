@@ -17,9 +17,10 @@ const CourseCard = ({ course }) => {
                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
                     <Image
                         src={course?.thumbnail?.startsWith('http') ? course.thumbnail : `/assets/images/courses/${course?.thumbnail}`}
-                        alt={"course"}
+                        alt={course?.localizedTitle || course?.title || 'Course'}
                         className="object-cover"
                         fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                 </div>
                 <div className="flex flex-col pt-2">

@@ -76,7 +76,9 @@ const CourseDetailsIntro = async ({ course }) => {
                     width={768}
                     height={463}
                     src={course?.thumbnail?.startsWith('http') ? course.thumbnail : `/assets/images/courses/${course?.thumbnail}`}
-                    alt=""
+                    alt={course?.localizedTitle || course?.title || 'Course thumbnail'}
+                    priority
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 768px"
                   />
                 </div>
               </div>
