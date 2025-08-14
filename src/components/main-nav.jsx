@@ -47,12 +47,12 @@ const MainNav = ({ items, children }) => {
   return (
     <div className="flex w-full justify-between items-center">
       <div className="flex gap-6 lg:gap-10 items-center">
-        <Link href="/"><Logo /></Link>
+        <Link href="/" prefetch={false}><Logo /></Link>
 
         {items?.length > 0 && (
           <nav className="hidden gap-6 lg:flex">
             {items.map((item, index) => (
-              <Link key={index} href={item.disable ? '#' : item.href} className={cn('text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm')}>
+              <Link key={index} href={item.disable ? '#' : item.href} prefetch={false} className={cn('text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm')}>
                 {item.title}
               </Link>
             ))}
@@ -78,7 +78,7 @@ const MainNav = ({ items, children }) => {
 
         {!session ? (
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/login" className={cn(buttonVariants({ size: 'sm' }), 'px-4 flex items-center gap-1')}>
+            <Link href="/login" prefetch={false} className={cn(buttonVariants({ size: 'sm' }), 'px-4 flex items-center gap-1')}>
               <LogIn className="w-4 h-4" />
               {t('login')}
             </Link>
@@ -91,12 +91,12 @@ const MainNav = ({ items, children }) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-4">
                 <DropdownMenuItem asChild>
-                  <Link href="/register/student" onClick={() => { try { document.cookie = 'registerRole=student; path=/; max-age=600'; } catch (e) { } }}>
+                  <Link href="/register/student" prefetch={false} onClick={() => { try { document.cookie = 'registerRole=student; path=/; max-age=600'; } catch (e) { } }}>
                     {t('student')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/register/instructor" onClick={() => { try { document.cookie = 'registerRole=instructor; path=/; max-age=600'; } catch (e) { } }}>
+                  <Link href="/register/instructor" prefetch={false} onClick={() => { try { document.cookie = 'registerRole=instructor; path=/; max-age=600'; } catch (e) { } }}>
                     {t('instructor')}
                   </Link>
                 </DropdownMenuItem>
@@ -114,14 +114,14 @@ const MainNav = ({ items, children }) => {
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 mt-4">
-              <DropdownMenuItem asChild><Link href="/account">{t('profile')}</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/account" prefetch={false}>{t('profile')}</Link></DropdownMenuItem>
               {loggedInUser?.role === 'instructor' && (
-                <DropdownMenuItem asChild><Link href="/dashboard">{t('instructorDashboard')}</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/dashboard" prefetch={false}>{t('instructorDashboard')}</Link></DropdownMenuItem>
               )}
-              <DropdownMenuItem asChild><Link href="/account/enrolled-courses">{t('myCourses')}</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="#">{t('testimonials')}</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/account/enrolled-courses" prefetch={false}>{t('myCourses')}</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="#" prefetch={false}>{t('testimonials')}</Link></DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="#" onClick={(e) => { e.preventDefault(); signOut(); }}>{t('logout')}</Link>
+                <Link href="#" prefetch={false} onClick={(e) => { e.preventDefault(); signOut(); }}>{t('logout')}</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
