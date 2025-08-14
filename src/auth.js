@@ -146,6 +146,7 @@ export const {
                     token.role = dbUser.role;
                     token.email = dbUser.email;
                     token.name = `${dbUser.firstName ?? ""} ${dbUser.lastName ?? ""}`.trim();
+                    token.profilePicture = dbUser.profilePicture || null;
                 }
             } catch (e) {
                 console.error("❌ JWT callback DB fetch failed", e);
@@ -156,6 +157,7 @@ export const {
             if (token?.id) {
                 session.user.id = token.id;
                 session.user.role = token.role;
+                session.user.profilePicture = token.profilePicture || null;
             }
             return session;
         }

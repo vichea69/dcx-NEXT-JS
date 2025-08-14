@@ -22,14 +22,19 @@ const MainNav = ({ items, children }) => {
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
-    if (session) {
+    if (session?.user) {
+      setLoggedInUser((prev) => prev ?? session.user);
       (async () => {
         try {
-          const res = await fetch('/api/me');
-          const data = await res.json();
-          setLoggedInUser(data);
+          const res = await fetch('/api/me', { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            setLoggedInUser(data);
+          }
         } catch (e) { }
       })();
+    } else {
+      setLoggedInUser(null);
     }
   }, [session]);
 
