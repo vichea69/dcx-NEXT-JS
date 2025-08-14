@@ -3,6 +3,7 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -27,6 +28,7 @@ export default async function RootLayout({ children }) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <Analytics />
+          <SpeedInsights />
         </NextIntlClientProvider>
       </body>
     </html>
